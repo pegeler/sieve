@@ -63,7 +63,7 @@ void sieve(int n, int ncol)
 
   int *a = calloc(n - 1, sizeof(int));
 
-  for (int i=2, stop = ceil(sqrt(n)); i <= stop; i++) {
+  for (int i=2, stop=sqrt(n); i <= stop; i++) {
     if (a[i-2] == NOT_PRIME)
       continue;
     for (int j=i, p=0; ; j++) {
