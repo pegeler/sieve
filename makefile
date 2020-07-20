@@ -6,3 +6,6 @@ all: sieve
 
 sieve: sieve.c
 	$(CXX) $< -o $@ -lm
+
+test:
+	python3 check.py 101

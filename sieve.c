@@ -27,7 +27,7 @@
 
 void usage(char *);
 int stoi(char *); /* User-defined version of atoi(3) */
-void print_primes(int *);
+void print_list(int *);
 void print_array(int *, int, int);
 int *sieve(int);
 
@@ -36,18 +36,15 @@ int main(int argc, char *argv[])
   int *a;
   int n;
   int c;
-  int cflag = 0;
-  int ncol;
+  int ncol = 0;
 
   while ((c = getopt(argc, argv, "c:")) != -1)
     switch(c) {
       case 'c':
-        cflag = 1;
         ncol = stoi(optarg);
         break;
       case '?':
         usage(argv[0]);
-        break;
     }
 
   if (optind != argc - 1)
@@ -57,10 +54,10 @@ int main(int argc, char *argv[])
   a = sieve(n);
 
   if (a != NULL)
-    if (cflag)
+    if (ncol)
       print_array(a, n, ncol);
     else
-      print_primes(a);
+      print_list(a);
 
   return 0;
 }
@@ -87,7 +84,7 @@ int stoi(char *s)
   return n;
 }
 
-void print_primes(int *a)
+void print_list(int *a)
 {
   while (*a != 0)
     printf("%d\n", *(a++));
@@ -113,21 +110,22 @@ int *sieve(int n)
   if (n < 2)
     return NULL;
 
-  int *a = calloc(n - 1, sizeof(int));
+  int len = (n+1)/2;
+  int *a = calloc(len, sizeof(int));
   enum {PRIME, NOT_PRIME} prime;
 
-  for (int i=2, stop=sqrt(n); i <= stop; i++) {
-    if (a[i-2] == NOT_PRIME)
-      continue;
-    for (int p=i*i; p <= n; p+=i)
-      a[p-2] = NOT_PRIME;
-  }
+  for (int i=3, stop=sqrt(n); i <= stop; i+=2)
+    if (a[(i-1)>>1] == PRIME)
+      for (int p=i*i; p <= n; p+=i)
+        if (p&1)
+          a[(p-1)>>1] = NOT_PRIME;
 
-  int j=0;
-  for (int i=0; i < n-1; i++)
+  int j=1;
+  for (int i=1; i < len; i++)
     if (a[i] == PRIME)
-      a[j++] = i + 2;
+      a[j++] = (i<<1) + 1;
 
+  a[0] = 2;
   a[j] = 0;
   a = realloc(a, (j+1) * sizeof(int));
 
