@@ -26,7 +26,7 @@
 #include <unistd.h>
 
 void usage(char *);
-int stoi(char *);
+int stoi(char *); /* User-defined version of atoi(3) */
 void print_primes(int *);
 void print_array(int *, int, int);
 int *sieve(int);
@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
         ncol = stoi(optarg);
         break;
       case '?':
-      default:
         usage(argv[0]);
         break;
     }
