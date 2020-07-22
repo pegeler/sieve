@@ -116,9 +116,8 @@ int *sieve(int n)
 
   for (int i=3, stop=sqrt(n); i <= stop; i+=2)
     if (a[(i-1)>>1] == PRIME)
-      for (int p=i*i; p <= n; p+=i)
-        if (p&1)
-          a[(p-1)>>1] = NOT_PRIME;
+      for (int p=i*i, inc=i<<1; p <= n; p+=inc)
+        a[(p-1)>>1] = NOT_PRIME;
 
   int j=1;
   for (int i=1; i < len; i++)

@@ -18,13 +18,13 @@ The gist of the algorithm is as follows.
 The code doesn't strictly follow this since there are some well-known tweaks to
 squeeze a little extra time and space efficiency.
 
-1. Instead of crossing out all multiples of _i_, we only cross out all _i_
-   &times; _j_ where _i_ &le; _j_ and _i_ &times; _j_ &le; _n_.
-1. We start the algorithm at 3 instead of 2 and thereby allocate half the space
-   in our initial list as well as skip step 2 in the original algorithm.
-1. We use addition and bit operations instead of multiply/divide/modulus. The
-   compiler will do these optimizations on its own if we set the `-O2` flag, but
-   it's still fun to do as an exercise :D
+- Instead of crossing out all multiples of _i_, we only check all _i_
+  &times; _j_ where _j_ &notin; 2&naturals;, _j_ &ge; _i_, _i_ &times; _j_ &le; _n_.
+- We start the algorithm at 3 instead of 2 and thereby allocate half the space
+  in our initial list as well as skip step 2 in the original algorithm.
+- We use addition and bit operations instead of multiply/divide/modulus. The
+  compiler will do the bit ops optimizations on its own if we set the `-O2` flag,
+  but it's still fun to do ourselves as an exercise! &#x1F604; <!-- laughing emoji -->
 
 ### Reference
 
