@@ -5,6 +5,22 @@ Find all prime numbers between 2 and _n_.
 
 ![demo](animate/demo.gif)
 
+## Usage
+
+```
+sieve [-c NCOL] [-h] N
+
+Generate prime numbers using the Sieve of Eratosthenes.
+
+positional arguments:
+  N           Return primes from 2 to N.
+
+optional arguments:
+  -c NCOL     Print primes in 2d table, NCOL columns wide.
+              Non-prime natural numbers will be represented by a '.' character.
+  -h          Display this help message and exit.
+```
+
 ## Algorithm
 
 The gist of the algorithm is as follows.
