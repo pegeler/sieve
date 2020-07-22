@@ -18,29 +18,32 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-from math import floor, sqrt
+from math import sqrt
 
 
 def sieve(n):
     """Sieve of Eratosthenes"""
     if n < 2:
         return []
+    else:
+        out = [2]
 
-    a = [True] * (n-1)
-    i = 2
-    stop = floor(sqrt(n))
+    a = [True] * ((n+1)//2-1)
+    i = 3
+    stop = int(sqrt(n))
 
     while i <= stop:
-        if not a[i-2]:
-            i += 1
-            continue
-        p = i * i
-        while p <= n:
-            a[p - 2] = False
-            p += i
-        i += 1
+        if a[(i-3)//2]:
+            p = i*i
+            inc = i*2
+            while p <= n:
+                a[(p-3)//2] = False
+                p += inc
+        i += 2
 
-    return [x for x, y in enumerate(a, 2) if y]
+    out.extend((x*2)+3 for x, y in enumerate(a) if y)
+
+    return out
 
 
 if False:
